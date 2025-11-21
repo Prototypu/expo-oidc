@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, ScrollView, SafeAreaView, ActivityIndicator, Alert } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
-import * as Linking from 'expo-linking';
 import * as AuthService from './services/authService';
 import { PKCEData, TokenResponse } from './services/authService';
 
@@ -17,7 +16,7 @@ export default function App() {
     setTokens(null);
 
     try {
-      // 1. Generate PKCE Data (state, verifier, challenge)
+      // 1. Generate PKCE Data
       const generatedPkceData = await AuthService.generatePKCEData();
       setPkceData(generatedPkceData);
 
@@ -26,7 +25,8 @@ export default function App() {
       console.log('Opening Auth URL:', authUrl);
 
       // 3. Open Web Browser
-      // We use openAuthSessionAsync to listen for the redirect scheme automatically
+      // This opens the system browser (SFSafariViewController/ChromeCustomTabs)
+      // It listens for the redirect scheme 'myimlogin://'
       const result = await WebBrowser.openAuthSessionAsync(
         authUrl,
         AuthService.AUTH_CONFIG.REDIRECT_URI
@@ -39,6 +39,8 @@ export default function App() {
         setStatus('用户取消了登录');
         setLoading(false);
       } else {
+        // On some platforms (like web), result might not contain the URL directly depending on flow,
+        // but for native + custom scheme, 'success' usually implies we got the redirect.
         setStatus(`登录未完成: ${result.type}`);
         setLoading(false);
       }

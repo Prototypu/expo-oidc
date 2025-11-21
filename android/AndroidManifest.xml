@@ -1,7 +1,13 @@
-<!-- Add this inside the <activity> tag in your AndroidManifest.xml -->
-<intent-filter>
-    <action android:name="android.intent.action.VIEW" />
-    <category android:name="android.intent.category.DEFAULT" />
-    <category android:name="android.intent.category.BROWSABLE" />
-    <data android:scheme="myimlogin" />
-</intent-filter>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+  <application>
+    <activity android:name=".MainActivity">
+      <!-- This intent-filter allows the app to handle myimlogin:// links -->
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data android:scheme="myimlogin" />
+      </intent-filter>
+    </activity>
+  </application>
+</manifest>

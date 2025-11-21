@@ -129,8 +129,6 @@ export async function exchangeToken(authCode: string, codeVerifier: string): Pro
  */
 export function parseCallbackUrl(url: string): { code: string; state: string } | null {
   try {
-    // Parse the query parameters manually or using URL interface if supported
-    // React Native URL support is decent, but sometimes simplistic parsing is safer for schemes
     const queryString = url.split('?')[1];
     if (!queryString) return null;
 
