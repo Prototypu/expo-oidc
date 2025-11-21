@@ -1,0 +1,5 @@
+{
+  "name": "Expo OAuth PKCE App",
+  "description": "A React Native Expo application implementing OAuth 2.0 with PKCE flow",
+  "requestFramePermissions": []
+}
